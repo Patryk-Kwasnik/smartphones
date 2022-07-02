@@ -1,6 +1,9 @@
 /node_modules
 /public/hot
 /public/storage
+/public/adminPanel/images
+/public/frontend/assets
+/public/assets
 /storage/*.key
 /vendor
 .env
