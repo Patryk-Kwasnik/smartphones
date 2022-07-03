@@ -21,7 +21,7 @@
 		<li >
           <a href="{{ url('admin/dashboard')}}">
             <i data-feather="pie-chart"></i>
-			<span>Dashboard</span>
+			<span>Główna strona</span>
           </a>
         </li>  
 		  	  
@@ -30,11 +30,17 @@
         <li>
           <a href="{{ route('all.brand') }}">
             <i data-feather="credit-card"></i>
-			      <span>Marki</span>
+			      <span>Producenci</span>
           </a>
         </li> 
         <li>
-          <a href="/admin/products">
+          <a href="{{ route('add.product') }}">
+            <i data-feather="credit-card"></i>
+			      <span>Dodaj produkt</span>
+          </a>
+        </li> 
+        <li>
+          <a href="{{ route('view.products') }}">
             <i data-feather="credit-card"></i>
 			      <span>Produkty</span>
           </a>

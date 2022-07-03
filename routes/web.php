@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +38,26 @@ Route::prefix('brand')->group(function(){
     Route::post('/update', [BrandController::class, 'BrandUpdate'])->name('brand.update');
     
     Route::get('/delete/{id}', [BrandController::class, 'BrandDelete'])->name('brand.delete');
+});
+
+// admin produkty
+Route::prefix('product')->group(function(){
+    Route::get('/add', [ProductController::class, 'AddProductView'])->name('add.product');
+    Route::post('/save', [ProductController::class, 'SaveProduct'])->name('product-save');
+
+    Route::get('/view', [ProductController::class, 'ProductsView'])->name('view.products');
+
+    Route::get('/edit/{id}', [ProductController::class, 'EditProduct'])->name('product.edit');
+    Route::post('/update', [ProductController::class, 'UpdateProduct'])->name('product-update');
+    
+    Route::post('/image/update', [ProductController::class, 'MultiImageUpdate'])->name('update-product-image');
+    Route::post('/thumbnail/update', [ProductController::class, 'ThumbnailImageUpdate'])->name('update-product-thumbnail');
+
+    Route::get('/multiimg/delete/{id}', [ProductController::class, 'MultiImageDelete'])->name('product.multiimg.delete');
+
+    Route::get('/delete/{id}', [ProductController::class, 'ProductDelete'])->name('product.delete');
+
+    // Route::get('/delete/{id}', [ProductController::class, 'BrandDelete'])->name('brand.delete');
 });
 
 //user
