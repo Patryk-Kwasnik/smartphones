@@ -90,9 +90,9 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <h5>Zdjęcia <span class="text-danger">*</span></h5>
+                                    <h5>Zdjęcia <span class="text-danger"></span></h5>
                                     <div class="controls">
-                                        <input type="file" name="product_img[]" class="form-control" multiple="" id="multiImg" > </div>
+                                        <input type="file" name="multi_img[]" class="form-control" multiple="" id="multiImg" > </div>
                                         <div class="row" id="preview_img"></div>
                                 </div>
                             </div>

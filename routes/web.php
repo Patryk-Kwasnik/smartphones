@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\IndexController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +20,7 @@ Route::middleware('admin:admin')->group(function () {
     Route::get('admin/login', [AdminController::class, 'loginForm']);
     Route::post('admin/login', [AdminController::class, 'store'])->name('admin.login');
 });
+
 // admin panel
 Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'verified'
 ])->group(function () {
@@ -45,7 +47,7 @@ Route::prefix('product')->group(function(){
     Route::get('/add', [ProductController::class, 'AddProductView'])->name('add.product');
     Route::post('/save', [ProductController::class, 'SaveProduct'])->name('product-save');
 
-    Route::get('/view', [ProductController::class, 'ProductsView'])->name('view.products');
+    Route::get('/view', [ProductController::class, 'ProductsView'])->name('view-products');
 
     Route::get('/edit/{id}', [ProductController::class, 'EditProduct'])->name('product.edit');
     Route::post('/update', [ProductController::class, 'UpdateProduct'])->name('product-update');
@@ -80,9 +82,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/admin/products', function
     return view('admin.products');
 })->name('products');
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
+Route::get('/', [IndexController::class, 'index']);
+//produkty
+Route::get('/product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']); 
+Route::get('/brands/{subcat_id}/{slug}', [IndexController::class, 'BrandProduct']);
 // Route::get('/user/logout', [BrandController::class, 'Logout'])->name('user.logout');
 
 // /// Chanage Password and user Profile Route 

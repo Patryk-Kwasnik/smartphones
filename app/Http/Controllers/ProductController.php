@@ -111,20 +111,22 @@ class ProductController extends Controller
 
     public function MultiImageUpdate(Request $request){
 		$imgs = $request->multi_img;
+        if($imgs){
+            foreach ($imgs as $id => $img) {
+            $imgDel = ProductImg::findOrFail($id);
+            if($imgDel)
+                unlink($imgDel->name);
 
-		foreach ($imgs as $id => $img) {
-	    $imgDel = ProductImg::findOrFail($id);
-	    unlink($imgDel->name);
+            $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
+            Image::make($img)->resize(917,1000)->save('upload/products/images/'.$make_name);
+            $uploadPath = 'upload/products/images/'.$make_name;
 
-    	$make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
-    	Image::make($img)->resize(917,1000)->save('upload/products/images/'.$make_name);
-    	$uploadPath = 'upload/products/images/'.$make_name;
-
-    	ProductImg::where('id',$id)->update([
-    		'name' => $uploadPath,
-    		'updated_at' => Carbon::now(),
-    	]);
-	     }
+            ProductImg::where('id',$id)->update([
+                'name' => $uploadPath,
+                'updated_at' => Carbon::now(),
+            ]);
+            }
+        }
        $notification = array(
 			'message' => 'Zdjęcia zostały zaktualizowane pomyślnie',
 			'alert-type' => 'info'
@@ -157,7 +159,8 @@ class ProductController extends Controller
     }
     public function MultiImageDelete($id){
         $oldimg = ProductImg::findOrFail($id);
-        unlink($oldimg->name);
+        if($oldimg->name)
+            unlink($oldimg->name);
         ProductImg::findOrFail($id)->delete();
 
         $notification = array(
@@ -169,10 +172,11 @@ class ProductController extends Controller
     // usuniecie ze zdjeciami
     public function ProductDelete($id){
         $product = Product::findOrFail($id);
-        unlink($product->product_thambnail);
+        if($product->product_thambnail)
+            unlink($product->product_thambnail);
         Product::findOrFail($id)->delete();
 
-        $images = MultiImg::where('product_id',$id)->get();
+        $images = ProductImg::where('product_id',$id)->get();
         foreach ($images as $img) {
             unlink($img->name);
             ProductImg::where('product_id',$id)->delete();

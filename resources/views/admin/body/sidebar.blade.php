@@ -40,7 +40,7 @@
           </a>
         </li> 
         <li>
-          <a href="{{ route('view.products') }}">
+          <a href="{{ route('view-products') }}">
             <i data-feather="credit-card"></i>
 			      <span>Produkty</span>
           </a>

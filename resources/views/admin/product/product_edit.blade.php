@@ -179,6 +179,7 @@
                             </div> 		
 				        </div><!--  end col md 3		 -->	
 				        @endforeach
+                        <input class="form-control" type="file" name="multi_img[]">
 			        </div>			
                     <div class="text-xs-right">
                         <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Aktualizuj zdjęcie">
