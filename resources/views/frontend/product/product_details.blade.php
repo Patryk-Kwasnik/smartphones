@@ -8,6 +8,7 @@
 <meta name="author" content="">
 <meta name="keywords" content="MediaCenter, Template, eCommerce">
 <meta name="robots" content="all">
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <title>Smartphones</title>
 
 <!-- Bootstrap Core CSS -->
@@ -90,7 +91,7 @@
 									<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
 										<i class="fa fa-shopping-cart"></i>													
 									</button>
-									<button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+									<button class="btn btn-primary cart-btn" type="button">Dodaj do koszyka</button>
 															
 								</div>
 								
@@ -106,22 +107,6 @@
 </div>
 <!-- ============================================== HOT DEALS: END ============================================== -->					
 
-<!-- ============================================== NEWSLETTER ============================================== -->
-<div class="sidebar-widget newsletter wow fadeInUp outer-bottom-small">
-          <h3 class="section-title">Newsletters</h3>
-          <div class="sidebar-widget-body outer-top-xs">
-            <p>Dołącz już teraz by nie przegapić żadnej okazji!</p>
-            <form>
-              <div class="form-group">
-                <label class="sr-only" for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Adres E-mail">
-              </div>
-              <button class="btn btn-primary">Zapisz się</button>
-            </form>
-          </div>
-          <!-- /.sidebar-widget-body --> 
-        </div>
-<!-- ============================================== NEWSLETTER: END ============================================== -->
 				</div>
 			</div><!-- /.sidebar -->
 			<div class='col-md-9'>
@@ -132,12 +117,13 @@
     <div class="product-item-holder size-big single-product-gallery small-gallery">
 
         <div id="owl-single-product">
-            <div class="single-product-gallery-item" id="slide1">
-                <a data-lightbox="image-1" data-title="Gallery" href="{{asset('frontend/assets/images/products/a40.jpg')}}">
-                    <img class="img-responsive" alt="" src="{{asset('frontend/assets/images/blank.gif')}}" data-echo="{{asset('frontend/assets/images/products/a40.jpg')}}" />
-                </a>
-            </div><!-- /.single-product-gallery-item -->
-
+			@foreach($productImg as $img)
+				<div class="single-product-gallery-item" id="slide{{ $img->id }}">
+					<a data-lightbox="image-1" data-title="Gallery" href="{{ asset($img->name ) }} ">
+						<img class="img-responsive" alt="" src="{{ asset($img->name ) }} " data-echo="{{ asset($img->name ) }} " />
+					</a>
+				</div><!-- /.single-product-gallery-item -->
+            @endforeach
 
         </div><!-- /.single-product-slider -->
 
@@ -163,7 +149,7 @@
 </div><!-- /.gallery-holder -->        			
 					<div class='col-sm-6 col-md-7 product-info-block'>
 						<div class="product-info">
-							<h1 class="name">{{ $product->name }}</h1>
+							<h1 class="name" id="pname" >{{ $product->name }}</h1>
 							
 							<div class="rating-reviews m-t-20">
 								<div class="row">
@@ -220,13 +206,13 @@
 								                  <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
 								                  <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
 								                </div>
-								                <input type="text" value="1">
+												<input type="text" id="qty" value="1" min="1">
 							              </div>
 							            </div>
 									</div>
-
+									<input type="hidden" id="product_id" value="{{ $product->id }}" min="1">
 									<div class="col-sm-7">
-										<a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> Dodaj do koszyka</a>
+										<button type="submit" onclick="addToCart()" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> Dodaj do koszyka</button>
 									</div>
 
 									
@@ -359,5 +345,112 @@
     <script src="{{asset('frontend/assets/js/bootstrap-select.min.js')}}"></script> 
     <script src="{{asset('frontend/assets/js/wow.min.js')}}"></script> 
     <script src="{{asset('frontend/assets/js/scripts.js')}}"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+	<script>
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+	function miniCart(){
+        $.ajax({
+            type: 'GET',
+            url: '/product/mini/cart',
+            dataType:'json',
+            success:function(response){
+				$('span[id="cartSubTotal"]').text(response.cartTotal);
+                $('#cartQty').text(response.cartQty);
+				var miniCart = ""
+                $.each(response.carts, function(key,value){
+                    miniCart += `<div class="cart-item product-summary">
+					<div class="row">
+						<div class="col-xs-4">
+						<div class="image"> <a href="detail.html"><img src="/${value.options.image}" alt=""></a> </div>
+						</div>
+						<div class="col-xs-7">
+						<h3 class="name"><a href="index.php?page-detail">${value.name}</a></h3>
+						<div class="price"> ${value.price} * ${value.qty} </div>
+						</div>
+						<div class="col-xs-1 action"> 
+          					<button type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)"><i class="fa fa-trash"></i></button> </div>
+						</div>
+					</div>
+					<!-- /.cart-item -->
+					<div class="clearfix"></div>
+					<hr>`
+                });
+                
+                $('#miniCart').html(miniCart);
+            }
+        })
+     }
+	 miniCart();
+    function addToCart(){
+        var product_name = $('#pname').text();
+        var id = $('#product_id').val();
+        var quantity = $('#qty').val();
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            data:{
+               quantity:quantity, product_name:product_name
+            },
+            url: "/cart/data/store/"+id,
+            success:function(data){
+                // Start Message 
+                const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      icon: 'success',
+                      showConfirmButton: false,
+                      timer: 3000
+                    })
+                if ($.isEmptyObject(data.error)) {
+					miniCart()
+                    Toast.fire({
+                        type: 'success',
+                        title: data.success
+                    })
+                }else{
+                    Toast.fire({
+                        type: 'error',
+                        title: data.error
+                    })
+                }
+            }
+        })
+    }
+	//czyszcenie koszyka
+	function miniCartRemove(rowId){
+        $.ajax({
+            type: 'GET',
+            url: '/minicart/product-remove/'+rowId,
+            dataType:'json',
+            success:function(data){
+            miniCart();
+             // Start Message 
+                const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      icon: 'success',
+                      showConfirmButton: false,
+                      timer: 3000
+                    })
+                if ($.isEmptyObject(data.error)) {
+                    Toast.fire({
+                        type: 'success',
+                        title: data.success
+                    })
+                }else{
+                    Toast.fire({
+                        type: 'error',
+                        title: data.error
+                    })
+                }
+            }
+        });
+    }
+    </script>
 </body>
 </html>

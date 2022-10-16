@@ -5,6 +5,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\CartController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -85,7 +87,17 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/admin/products', function
 Route::get('/', [IndexController::class, 'index']);
 //produkty
 Route::get('/product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']); 
-Route::get('/brands/{subcat_id}/{slug}', [IndexController::class, 'BrandProduct']);
+Route::get('/brands/{brand_id}/{slug}', [IndexController::class, 'BrandProduct']);
+
+//koszyk mini-ajax
+Route::post('/cart/data/store/{id}', [CartController::class, 'AddToCart']); 
+Route::get('/product/mini/cart/', [CartController::class, 'AddMiniCart']);
+Route::get('/minicart/product-remove/{rowId}', [CartController::class, 'RemoveMiniCart']);
+
+//koszyk główny
+Route::get('/mycart', [CartController::class, 'MyCart'])->name('mycart');
+Route::get('/get-cart-product', [CartController::class, 'GetCartProduct']);
+Route::get('/cart-remove/{rowId}', [CartController::class, 'RemoveCartProduct']);
 // Route::get('/user/logout', [BrandController::class, 'Logout'])->name('user.logout');
 
 // /// Chanage Password and user Profile Route 

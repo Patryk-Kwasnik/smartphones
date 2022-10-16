@@ -22,13 +22,13 @@ class IndexController extends Controller
         $productImg = ProductImg::where('product_id',$id)->get();
 
 	 	return view('frontend.product.product_details',compact('product','brand','productImg'));
-
 	}
 
 	public function BrandProduct($brand_id, $slug){
 		$products = Product::where('status',1)->where('brand_id',$brand_id)->orderBy('id','DESC')->paginate(3);
-		$brands = Brand::orderBy('name','ASC')->get();
-		return view('frontend.product.brand_view',compact('products','brands'));
+		$brand = Brand::orderBy('name','ASC')->get();
+		
+		return view('frontend.index',compact('products','brand'));
 
 	}
 

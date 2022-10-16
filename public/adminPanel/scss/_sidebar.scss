@@ -731,7 +731,7 @@
     .sidebar-menu{
         &.tree {
             padding: 10px 0 0 0 ;
-                margin: 0;
+                margin: 0 5px 0 0 ;
         }
         >li{
             @include hover-active-state{

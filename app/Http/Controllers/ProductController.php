@@ -25,21 +25,24 @@ class ProductController extends Controller
     	$save_url = 'upload/products/thumbnail/'.$name_gen;
 
         $product_id = Product::insertGetId([
-      	'brand_id' => $request->brand_id,     
+      	'brand_id' => $request->brand_id,     //id_producent
       	'name' => $request->name,
       	'slug' =>  strtolower(str_replace(' ', '-', $request->name)),
-      	'product_code' => $request->product_code,
-   //   	'product_count' => $request->product_count,
-    //  	'product_tags' => $request->product_tags,
-      //	'product_size' => $request->product_size,
-      	'product_color' => $request->product_color,
+      	'size_screen' => $request->size_screen,
+        'count' => $request->count,
+      	'cpu_clock' => $request->cpu_clock,
+      	'count_cores' => $request->count_cores,
+        'ram' => $request->ram,
+        'camera_mpx' => $request->camera_mpx,
+        //	'data_serialized' => $request->data_serialized
+      	'color' => $request->color,
       	'selling_price' => $request->selling_price,
     //  	'discount_price' => $request->discount_price,
       	'desc' => $request->desc,
       	'hot_deals' => $request->hot_deals,
       	'featured' => $request->featured,
       	'product_thumbnail' => $save_url,
-      	'status' => 1,
+      	'status' => 1, //dostepnosc
       	'created_at' => Carbon::now(),   	 
       ]);
 
@@ -50,7 +53,7 @@ class ProductController extends Controller
             Image::make($img)->resize(917,1000)->save('upload/products/images/'.$make_name);
             $uploadPath = 'upload/products/images/'.$make_name;
 
-            MultiImg::insert([
+            ProductImg::insert([
                 'product_id' => $product_id,
                 'name' => $uploadPath,
                 'created_at' => Carbon::now(), 
@@ -84,22 +87,24 @@ class ProductController extends Controller
         $product_id = $request->id;
      
         Product::findOrFail($product_id)->update([
-            'brand_id' => $request->brand_id,     
-            'name' => $request->name,
-            'slug' =>  strtolower(str_replace(' ', '-', $request->name)),
-            'product_code' => $request->product_code,
-     //   	'product_count' => $request->product_count,
-      //  	'product_tags' => $request->product_tags,
-        //	'product_size' => $request->product_size,
-            'product_color' => $request->product_color,
-            'selling_price' => $request->selling_price,
-      //  	'discount_price' => $request->discount_price,
-            'desc' => $request->desc,
-            'hot_deals' => $request->hot_deals,
-            'featured' => $request->featured,
-         //   'product_thumbnail' => $save_url,
-            'status' => 1,
-            'created_at' => Carbon::now(),   	 
+    	'brand_id' => $request->brand_id,     //id_producent
+      	'name' => $request->name,
+      	'slug' =>  strtolower(str_replace(' ', '-', $request->name)),
+      	'size_screen' => $request->size_screen,
+        'count' => $request->count,
+      	'cpu_clock' => $request->cpu_clock,
+      	'count_cores' => $request->count_cores,
+        'ram' => $request->ram,
+        'camera_mpx' => $request->camera_mpx,
+        //	'data_serialized' => $request->data_serialized
+      	'color' => $request->color,
+      	'selling_price' => $request->selling_price,
+    //  	'discount_price' => $request->discount_price,
+      	'desc' => $request->desc,
+      	'hot_deals' => $request->hot_deals,
+      	'featured' => $request->featured,
+      //	'product_thumbnail' => $save_url,
+      	'status' => 1 //dostepnosc
         ]);
 
         $notification = array(
@@ -114,7 +119,6 @@ class ProductController extends Controller
         if($imgs){
             foreach ($imgs as $id => $img) {
             $imgDel = ProductImg::findOrFail($id);
-            if($imgDel)
                 unlink($imgDel->name);
 
             $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
@@ -138,7 +142,8 @@ class ProductController extends Controller
     public function ThumbnailImageUpdate(Request $request){
         $product_id = $request->id;
         $oldImage = $request->old_img;
-        unlink($oldImage);
+        // if($oldImage)
+        // unlink($oldImage);
 
         $image = $request->file('product_thumbnail');
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();

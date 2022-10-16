@@ -44,37 +44,87 @@
                                         <input type="text" name="name" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
                                 </div> 
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <h5>Kod produktu <span class="text-danger">*</span></h5>
-                                    <div class="controls">
-                                        <input type="text" name="product_code" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
-                                </div> 
-                            </div>
+                         
                         </div>
                         <div class="row"> <!-- start 2t row  -->
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <h5>Kolor <span class="text-danger">*</span></h5>
                                     <div class="controls">
-                                        <input type="text" name="product_color" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
+                                        <input type="text" name="color" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
-                                    <h5>Cena <span class="text-danger">*</span></h5>
-                                    <div class="controls">
+                            <div class="form-group">
+                                <h5>Wielkość ekranu <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="number" step="0.1" name="size_screen" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="row"> <!-- start 3t row  -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <h5>Cena <span class="text-danger">*</span></h5>
+                                <div class="controls">
                                     <input type="number" name="selling_price" class="form-control" required data-validation-required-message="To pole jest wymagane">
                                 </div>
                             </div>
-                        </div></div>
-                        <!-- end 2t row  -->
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <h5>Ilość <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="number" name="count" class="form-control" required data-validation-required-message="To pole jest wymagane">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"> <!-- start 3t row  -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <h5>Ilość rdzeni <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                <select name="count_cores" class="form-control">
+                                <option value="" selected="" disabled="">Wybierz</option>                                 
+                                        <option value="1">1</option>	
+                                        <option value="2">2</option>	
+                                        <option value="4">4</option>	
+                                </select>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <h5>Zegar procesora <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="number" name="cpu_clock" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="row"> <!-- start 3t row  -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <h5>Pamięc ram <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="number" name="ram" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
+                            </div> 
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <h5>Główny apart- mpx <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="number" name="camera_mpx" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
+                            </div> 
+                        </div>
+                    </div>
+                        <!-- end 3t row  -->
                         <div class="row"> <!-- start 2t row  -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <h5>Opis <span class="text-danger">*</span></h5>
+                                    <h5>Opis <span class="text-danger"></span></h5>
                                     <div class="controls">
-                                        <textarea name="desc" id="textarea" class="form-control" required placeholder="Textarea text"></textarea>
+                                        <textarea name="desc" id="textarea" class="form-control" placeholder="Textarea text"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +132,7 @@
                         <div class="row"> <!-- start 3t row  -->
                              <div class="col-md-4">
                                 <div class="form-group">
-                                    <h5>Główne zdjęcie <span class="text-danger">*</span></h5>
+                                    <h5>Miniaturka produktu <span class="text-danger">*</span></h5>
                                     <div class="controls">
                                         <input type="file" name="product_thumbnail" class="form-control"  onChange="mainThamUrl(this)" required data-validation-required-message="To pole jest wymagane"> </div>
                                         <img src="" id="mainThmb" style= "object-fit:contain">

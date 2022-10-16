@@ -45,31 +45,81 @@
                                         <input type="text" name="name" class="form-control" value="{{ $products->name }}" required data-validation-required-message="To pole jest wymagane"> </div>
                                 </div> 
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <h5>Kod produktu <span class="text-danger">*</span></h5>
-                                    <div class="controls">
-                                        <input type="text" name="product_code" class="form-control" value="{{ $products->product_code }}" required data-validation-required-message="To pole jest wymagane"> </div>
-                                </div> 
-                            </div>
+                         
                         </div>
                         <div class="row"> <!-- start 2t row  -->
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <h5>Kolor <span class="text-danger">*</span></h5>
                                     <div class="controls">
-                                        <input type="text" name="product_color" class="form-control" value="{{ $products->product_color }}" required data-validation-required-message="To pole jest wymagane"> </div>
+                                        <input type="text" name="color" class="form-control" value="{{ $products->color }}" required data-validation-required-message="To pole jest wymagane"> </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
-                                    <h5>Cena <span class="text-danger">*</span></h5>
-                                    <div class="controls">
-                                    <input type="number" name="selling_price" class="form-control"  value="{{ $products->selling_price }}" required data-validation-required-message="To pole jest wymagane">
+                            <div class="form-group">
+                                <h5>Wielkość ekranu <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="number" step="0.1" name="size_screen" class="form-control" value="{{ $products->size_screen }}" required data-validation-required-message="To pole jest wymagane"> </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="row"> <!-- start 3t row  -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <h5>Cena <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="number" name="selling_price" class="form-control" value="{{ $products->selling_price }}" required data-validation-required-message="To pole jest wymagane">
                                 </div>
                             </div>
-                        </div></div>
-                        <!-- end 2t row  -->
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <h5>Ilość <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="number" name="count" class="form-control" value="{{ $products->count }}" required data-validation-required-message="To pole jest wymagane">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"> <!-- start 3t row  -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <h5>Ilość rdzeni <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <select name="count_cores" class="form-control">
+                                    <option value="" selected="" disabled="">Wybierz</option>                                 
+                                            <option value="1">1</option>	
+                                            <option value="2">2</option>	
+                                            <option value="4">4</option>	
+                                    </select>
+                                </div> 
+                            </div> 
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <h5>Zegar procesora <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="number" name="cpu_clock" class="form-control" value="{{ $products->cpu_clock }}" required data-validation-required-message="To pole jest wymagane"> </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="row"> <!-- start 3t row  -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <h5>Pamięc ram <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="number" name="ram" class="form-control" value="{{ $products->ram }}" required data-validation-required-message="To pole jest wymagane"> </div>
+                            </div> 
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <h5>Główny apart- mpx <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="number" name="camera_mpx" class="form-control" value="{{ $products->camera_mpx }}" required data-validation-required-message="To pole jest wymagane"> </div>
+                            </div> 
+                        </div>
+                    </div>
+                        <!-- end 3t row  -->
                         <div class="row"> <!-- start 2t row  -->
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -117,9 +167,9 @@
         <section class="content">
  	        <div class="row">
                 <div class="col-md-12">
-				    <div class="box bt-3 border-info">
+				    <div class="box bt-3 border-info p-3">
 				        <div class="box-header">
-		                    <h4 class="box-title">Główne zdjęcie produktu</h4>
+		                    <h4 class="box-title">Miniaturka produktu</h4>
 				        </div>
                         <form method="post" action="{{ route('update-product-thumbnail') }}" enctype="multipart/form-data">
                         @csrf
@@ -141,9 +191,9 @@
 				                </div><!--  end col md 3		 -->	
 		                	</div>			
 		                <div class="text-xs-right">
-                            <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Aktualizuj główne zdjęcie">
+                            <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Aktualizuj miniaturkę produktu">
                                 </div>
-                            <br><br>
+                            
                         </form>		      
                     </div>
                 </div>
@@ -154,7 +204,7 @@
  <section class="content">
  	<div class="row">
         <div class="col-md-12">
-			<div class="box bt-3 border-info">
+			<div class="box bt-3 border-info p-3">
 				<div class="box-header">
 		            <h4 class="box-title">Zdjęcia produktu</h4>
 				</div>
@@ -179,12 +229,12 @@
                             </div> 		
 				        </div><!--  end col md 3		 -->	
 				        @endforeach
-                        <input class="form-control" type="file" name="multi_img[]">
+                    
 			        </div>			
                     <div class="text-xs-right">
-                        <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Aktualizuj zdjęcie">
+                        <input type="submit" class="btn btn-rounded btn-primary mb-5 mt-3" value="Aktualizuj zdjęcie">
                     </div>
-                        <br><br>
+            
                 </form>		   
             </div>
         </div>
