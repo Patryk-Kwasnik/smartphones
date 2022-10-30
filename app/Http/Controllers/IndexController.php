@@ -6,6 +6,9 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductImg;
 use Illuminate\Http\Request;
+use Auth;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class IndexController extends Controller
 {
@@ -27,9 +30,8 @@ class IndexController extends Controller
 	public function BrandProduct($brand_id, $slug){
 		$products = Product::where('status',1)->where('brand_id',$brand_id)->orderBy('id','DESC')->paginate(3);
 		$brand = Brand::orderBy('name','ASC')->get();
-		
-		return view('frontend.index',compact('products','brand'));
 
+		return view('frontend.index',compact('products','brand'));
 	}
 
-}   
+}

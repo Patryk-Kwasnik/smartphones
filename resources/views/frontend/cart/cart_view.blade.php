@@ -35,6 +35,7 @@ My Cart Page
                                 <tbody id="cartPage">
                             </tbody>
                         </table>
+                        <a href="{{ route('checkout') }}" type="submit" class="btn btn-primary checkout-btn">Przejdź do zamówienia</a>
                     </div>
                 </div>			
             </div><!-- /.row -->		

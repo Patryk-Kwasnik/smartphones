@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Auth;
 
 class CartController extends Controller
 {
@@ -66,4 +67,29 @@ class CartController extends Controller
         Cart::remove($rowId);
         return response()->json(['success' => 'Produkt został usunięty z koszyka.']);
     }
+
+	// zamówienie
+    public function CheckoutCreate(){
+        if (Auth::check()) {
+            if (Cart::total() > 0) {
+				$carts = Cart::content();
+				$cartQty = Cart::count();
+				$cartTotal = Cart::total();
+				return view('frontend.cart.order_checkout_view',compact('carts','cartQty','cartTotal'));
+            }else{
+				$notification = array(
+				'message' => 'Brak produtku w koszyku.',
+				'alert-type' => 'error'
+				);
+			return redirect()->to('/')->with($notification);
+            }
+        }else{
+             $notification = array(
+            'message' => 'Zaloguj się, aby przejść do zamówienia.',
+            'alert-type' => 'error'
+       		);
+        return redirect()->route('login')->with($notification);
+        }
+    }
+	
 }
