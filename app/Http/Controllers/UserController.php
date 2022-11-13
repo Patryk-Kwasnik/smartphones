@@ -36,7 +36,6 @@ class UserController extends Controller
         Auth::logout();
         return Redirect()->route('login');
     }
-
     public function UserProfile(){
         if(Auth::user()) {
             $id = Auth::user()->id;
@@ -80,5 +79,10 @@ class UserController extends Controller
         }else{
             return redirect()->back();
         }
+    }
+//wyświetlenie wszystkich userów w panelu admina
+    public function AdminAllUsers(){
+        $users = User::latest()->get();
+        return view('backend.user.all_user',compact('users'));
     }
 }

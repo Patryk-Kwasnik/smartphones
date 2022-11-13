@@ -51,4 +51,28 @@ class OrderController extends Controller
 
         return redirect()->route('index')->with($notification);
     }
+    //admin view orders
+    public function OrdersView(){
+        $orders = Order::orderBy('id','DESC')->get();
+
+        return view('admin.orders.orders_view',compact('orders'));
+    }
+    public function orderDetails($order_id){
+        $order = Order::with('user')->where('id',$order_id)->first();
+        $orderItem = OrderItem::with('product')->where('order_id',$order_id)->orderBy('id','DESC')->get();
+
+        return view('admin.orders.order_details',compact('order','orderItem'));
+    }
+    public function statusChange()
+    {
+        $status = $_POST['status'];
+        $id_order = $_POST['id_order'];
+
+        Order::whereId($id_order)->update(['status' => $status]);
+        $notification = array(
+            'message' => 'Status zamówienia został zaktualizowany',
+            'alert-type' => 'success'
+        );
+        return redirect()->route("orders/details/'$id_order'")->with($notification);
+    }
 }

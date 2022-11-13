@@ -7,7 +7,6 @@
         <div class="cnt-account">
           <ul class="list-unstyled">
             <li><a href="{{ route('user.profile') }}"><i class="icon fa fa-user"></i>Moje konto</a></li>
-            <li><a href="#"><i class="icon fa fa-heart"></i>Ulubione</a></li>
             <li><a href="{{ route('mycart') }}"><i class="icon fa fa-shopping-cart"></i>Koszyk</a></li>
             <li><a href="/login"><i class="icon fa fa-lock"></i>Login</a></li>
           </ul>

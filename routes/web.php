@@ -49,7 +49,6 @@ Route::prefix('brand')->group(function(){
 Route::prefix('product')->group(function(){
     Route::get('/add', [ProductController::class, 'AddProductView'])->name('add.product');
     Route::post('/save', [ProductController::class, 'SaveProduct'])->name('product-save');
-
     Route::get('/view', [ProductController::class, 'ProductsView'])->name('view-products');
 
     Route::get('/edit/{id}', [ProductController::class, 'EditProduct'])->name('product.edit');
@@ -59,12 +58,15 @@ Route::prefix('product')->group(function(){
     Route::post('/thumbnail/update', [ProductController::class, 'ThumbnailImageUpdate'])->name('update-product-thumbnail');
 
     Route::get('/multiimg/delete/{id}', [ProductController::class, 'MultiImageDelete'])->name('product.multiimg.delete');
-
     Route::get('/delete/{id}', [ProductController::class, 'ProductDelete'])->name('product.delete');
-
-    // Route::get('/delete/{id}', [ProductController::class, 'BrandDelete'])->name('brand.delete');
 });
-
+// admin zamówienia
+Route::prefix('orders')->group(function(){
+    Route::get('/details/{id}', [OrderController::class, 'orderDetails'])->name('order.detail');
+    Route::get('/view', [OrderController::class, 'OrdersView'])->name('view-orders');
+    //ajax zmiana status zamówienia
+    Route::post('/change_status', [OrderController::class, 'statusChange'])->name('status-change');
+});
 //user
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'
 ])->group(function () {
@@ -105,7 +107,6 @@ Route::get('/get-cart-product', [CartController::class, 'GetCartProduct']);
 Route::get('/cart-remove/{rowId}', [CartController::class, 'RemoveCartProduct']);
 //zamówienie
 Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
-
 Route::post('/checkout/store', [OrderController::class, 'addOrder'])->name('addOrder');
 
 // Route::get('/user/logout', [BrandController::class, 'Logout'])->name('user.logout');

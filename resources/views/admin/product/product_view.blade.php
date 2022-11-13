@@ -33,8 +33,8 @@
                                 <td>{{ $item->product_count}}</td>
                                 <td>{{ $item->selling_price }}</td>
                                 <td>
-                                    <a href="{{ route('product.edit',$item->id) }}" class="btn btn-info" title="Edytuj"><i class="fa fa-pencil"></i> Edytuj</a>
-                                    <a href="{{ route('product.delete',$item->id) }}" class="btn btn-danger" title="Usuń" id="delete"><i class="fa fa-trash"></i> Usuń</a>
+                                    <a href="{{ route('product.edit',$item->id) }}" class="btn-sm btn btn-info" title="Edytuj"><i class="fa fa-pencil"></i> Edytuj</a>
+                                    <a href="{{ route('product.delete',$item->id) }}" class="btn-sm btn btn-dark" title="Usuń" id="delete"><i class="fa fa-trash"></i> Usuń</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -52,4 +52,4 @@
 		</section>
 		<!-- /.content -->
 	  </div>
-@endsection 
+@endsection

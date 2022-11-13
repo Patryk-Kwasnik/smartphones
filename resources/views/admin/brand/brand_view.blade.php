@@ -2,7 +2,7 @@
 @section('admin')
 
 	  <div class="container-full">
-	
+
 		<!-- Main content -->
 		<section class="content">
 		  <div class="row">
@@ -29,9 +29,9 @@
 								<td class="text-center">{{ $row->name }}</td>
 								<td class="text-center">{{ $row->slug }}</td>
 								<td class="text-center"> @if($row->image) <img src = "{{ asset ($row->image) }}" style ="width:70px;">@endif </td>
-                                <td class="text-center"> 
-									<a href =" {{ route('brand.edit', $row->id) }}" class= "btn btn-info"> <i class="fa fa-pencil"></i> Edytuj </a> 
-									<a href =" {{ route('brand.delete', $row->id) }}" class= "btn btn-danger" id="delete"><i class="fa fa-trash"></i> Usuń </a>
+                                <td class="text-center">
+									<a href =" {{ route('brand.edit', $row->id) }}" class= "btn-sm btn btn-info"> <i class="fa fa-pencil"></i> Edytuj </a>
+									<a href =" {{ route('brand.delete', $row->id) }}" class= "btn-sm btn btn-dark" id="delete"><i class="fa fa-trash"></i> Usuń </a>
 								</td>
 							</tr>
 							@endforeach
@@ -40,7 +40,7 @@
 					</div>
 				</div>
 				<!-- /.box-body -->
-			  </div>     
+			  </div>
 			</div>
 			<!-- /.col -->
             <div class="col-4">
@@ -75,7 +75,7 @@
 					</div>
 				</div>
 				<!-- /.box-body -->
-			  </div>     
+			  </div>
 			</div>
 			<!-- /.col -->
 		  </div>
@@ -83,6 +83,6 @@
 		  <!-- /.row -->
 		</section>
 		<!-- /.content -->
-	  
+
 	  </div>
 @endsection
