@@ -18,7 +18,7 @@
 				<div class="col">
                      <form method="POST" action="{{ route('product-save') }}" enctype="multipart/form-data" >
                      @csrf
-	                    <div class="col-12">	
+	                    <div class="col-12">
 
 		                <div class="row"> <!-- start 1st row  -->
                             <div class="col-md-4">
@@ -28,12 +28,12 @@
                                         <select name="brand_id" class="form-control">
                                         <option value="" selected="" disabled="">Wybierz producenta</option>
                                             @foreach($brands as $brand)
-                                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>	
+                                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                             @endforeach
                                         </select>
-                                        @error('brand_id') 
+                                        @error('brand_id')
                                         <span class="text-danger">{{ $message }}</span>
-                                        @enderror 
+                                        @enderror
                                     </div>
                                 </div>
                             </div> <!-- end col md 4 -->
@@ -42,9 +42,9 @@
                                     <h5>Nazwa <span class="text-danger">*</span></h5>
                                     <div class="controls">
                                         <input type="text" name="name" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
-                                </div> 
+                                </div>
                             </div>
-                         
+
                         </div>
                         <div class="row"> <!-- start 2t row  -->
                             <div class="col-md-4">
@@ -59,7 +59,7 @@
                                 <h5>Wielkość ekranu <span class="text-danger">*</span></h5>
                                 <div class="controls">
                                     <input type="number" step="0.1" name="size_screen" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
                     <div class="row"> <!-- start 3t row  -->
@@ -67,7 +67,7 @@
                             <div class="form-group">
                                 <h5>Cena <span class="text-danger">*</span></h5>
                                 <div class="controls">
-                                    <input type="number" name="selling_price" class="form-control" required data-validation-required-message="To pole jest wymagane">
+                                    <input type="number" step="0.01" name="selling_price" class="form-control" required data-validation-required-message="To pole jest wymagane">
                                 </div>
                             </div>
                         </div>
@@ -86,36 +86,52 @@
                                 <h5>Ilość rdzeni <span class="text-danger">*</span></h5>
                                 <div class="controls">
                                 <select name="count_cores" class="form-control">
-                                <option value="" selected="" disabled="">Wybierz</option>                                 
-                                        <option value="1">1</option>	
-                                        <option value="2">2</option>	
-                                        <option value="4">4</option>	
+                                <option value="" selected="" disabled="">Wybierz</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="4">4</option>
                                 </select>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <h5>Zegar procesora <span class="text-danger">*</span></h5>
+                                <h5>Zegar procesora (GHz) <span class="text-danger">*</span></h5>
                                 <div class="controls">
-                                    <input type="number" name="cpu_clock" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
-                            </div> 
+                                    <input type="number" step="0.1" name="cpu_clock" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row"> <!-- start 3t row  -->
                         <div class="col-md-4">
                             <div class="form-group">
-                                <h5>Pamięc ram <span class="text-danger">*</span></h5>
+                                <h5>Pamięc ram (GB)<span class="text-danger">*</span></h5>
                                 <div class="controls">
                                     <input type="number" name="ram" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <h5>Główny apart- mpx <span class="text-danger">*</span></h5>
                                 <div class="controls">
                                     <input type="number" name="camera_mpx" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
-                            </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"> <!-- start 3t row  -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <h5>Wbudowana pamięć (GB)<span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="number" name="memory" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <h5>Pojemność bateri (mAh)<span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="number" name="battery_capacity" class="form-control" required data-validation-required-message="To pole jest wymagane"> </div>
+                            </div>
                         </div>
                     </div>
                         <!-- end 3t row  -->
@@ -147,7 +163,7 @@
                                 </div>
                             </div>
                         </div>
-                           
+
 	                    </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -192,35 +208,35 @@
 			};
 			reader.readAsDataURL(input.files[0]);
 		}
-	}	
+	}
 </script>
 <script>
- 
+
   $(document).ready(function(){
    $('#multiImg').on('change', function(){ //on file input change
       if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
       {
           var data = $(this)[0].files; //this file data
-           
+
           $.each(data, function(index, file){ //loop though each file
               if(/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)){ //check supported file type
                   var fRead = new FileReader(); //new filereader
                   fRead.onload = (function(file){ //trigger function on successful read
                   return function(e) {
                       var img = $('<img/>').addClass('thumb').attr('src', e.target.result) .width(80)
-                  .height(80); //create image element 
+                  .height(80); //create image element
                       $('#preview_img').append(img); //append image to output element
                   };
                   })(file);
                   fRead.readAsDataURL(file); //URL representing the file's data.
               }
           });
-           
+
       }else{
           alert("Your browser doesn't support File API!"); //if File API is absent
       }
    });
   });
-   
+
   </script>
-@endsection 
+@endsection

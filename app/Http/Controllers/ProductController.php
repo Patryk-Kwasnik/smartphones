@@ -34,6 +34,8 @@ class ProductController extends Controller
       	'count_cores' => $request->count_cores,
         'ram' => $request->ram,
         'camera_mpx' => $request->camera_mpx,
+        'memory' => $request->memory,
+        'battery_capacity' => $request->battery_capacity,
         //	'data_serialized' => $request->data_serialized
       	'color' => $request->color,
       	'selling_price' => $request->selling_price,
@@ -43,7 +45,7 @@ class ProductController extends Controller
       	'featured' => $request->featured,
       	'product_thumbnail' => $save_url,
       	'status' => 1, //dostepnosc
-      	'created_at' => Carbon::now(),   	 
+      	'created_at' => Carbon::now(),
       ]);
 
       $images = $request->file('multi_img');
@@ -56,7 +58,7 @@ class ProductController extends Controller
             ProductImg::insert([
                 'product_id' => $product_id,
                 'name' => $uploadPath,
-                'created_at' => Carbon::now(), 
+                'created_at' => Carbon::now(),
             ]);
         }
     }
@@ -85,7 +87,7 @@ class ProductController extends Controller
     public function UpdateProduct(Request $request){
 
         $product_id = $request->id;
-     
+
         Product::findOrFail($product_id)->update([
     	'brand_id' => $request->brand_id,     //id_producent
       	'name' => $request->name,
@@ -96,6 +98,8 @@ class ProductController extends Controller
       	'count_cores' => $request->count_cores,
         'ram' => $request->ram,
         'camera_mpx' => $request->camera_mpx,
+        'memory' => $request->memory,
+        'battery_capacity' => $request->battery_capacity,
         //	'data_serialized' => $request->data_serialized
       	'color' => $request->color,
       	'selling_price' => $request->selling_price,
@@ -111,7 +115,7 @@ class ProductController extends Controller
 			'message' => 'Dane zaktualizowane pomyslnie',
 			'alert-type' => 'info'
 		);
-        return redirect()->back()->with($notification);  
+        return redirect()->back()->with($notification);
     }
 
     public function MultiImageUpdate(Request $request){
@@ -136,8 +140,8 @@ class ProductController extends Controller
 			'alert-type' => 'info'
 		);
 		return redirect()->back()->with($notification);
-	} 
-    
+	}
+
 //główne zdjecie
     public function ThumbnailImageUpdate(Request $request){
         $product_id = $request->id;

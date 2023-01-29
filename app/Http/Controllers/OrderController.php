@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -13,7 +13,7 @@ use Auth;
 class OrderController extends Controller
 {
     public function addOrder(Request $request){
-        $total_amount = round(Cart::total());
+        $total_amount = Cart::total();
         $order_id = Order::insertGetId([
             'user_id' => Auth::id(),
             'name' => $request->name,
@@ -74,5 +74,26 @@ class OrderController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route("orders/details/'$id_order'")->with($notification);
+    }
+    //podsumowanie przychodu
+    public static function orders_summary()
+    {
+        $data = DB::table("orders")->sum('amount');
+        return $data;
+    }
+    public static function products_count()
+    {
+        $data = DB::table("order_items")->sum('count');
+        return $data;
+    }
+    public static function max_order()
+    {
+        $data = DB::table("orders")->max('amount');
+        return $data;
+    }
+    public static function avg_order()
+    {
+        $data = DB::table("orders")->avg('amount');
+        return $data;
     }
 }

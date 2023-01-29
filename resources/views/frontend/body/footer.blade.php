@@ -1,4 +1,4 @@
-<footer id="footer" class="footer color-bg">
+<footer id="footer" class="footer color-bg fixed-bottom">
 
   <div class="copyright-bar">
     <div class="container">
@@ -23,7 +23,7 @@
             <li><img src="assets/images/payments/5.png" alt=""></li>
           </ul>
         </div>
-        <!-- /.payment-methods --> 
+        <!-- /.payment-methods -->
       </div>
     </div>
   </div>

@@ -28,9 +28,9 @@
 						<tbody>
                             @foreach($products as $item)
                             <tr>
-                                <td> <img src="{{ asset($item->product_thumbnail) }}" style="width: 60px; height: 50px;">  </td>
+                                <td> <img src="{{ asset($item->product_thumbnail) }}" style="width: auto; height: 50px;">  </td>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->product_count}}</td>
+                                <td>{{ $item->count}}</td>
                                 <td>{{ $item->selling_price }}</td>
                                 <td>
                                     <a href="{{ route('product.edit',$item->id) }}" class="btn-sm btn btn-info" title="Edytuj"><i class="fa fa-pencil"></i> Edytuj</a>

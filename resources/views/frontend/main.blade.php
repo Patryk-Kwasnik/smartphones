@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="{{asset('frontend/assets/css/animate.min.css')}}">
 <link rel="stylesheet" href="{{asset('frontend/assets/css/rateit.css')}}">
 <link rel="stylesheet" href="{{asset('frontend/assets/css/bootstrap-select.min.css')}}">
-
+<link rel="stylesheet" href="{{asset('frontend/assets/css/configurator.css')}}">
 <!-- Icons/Glyphs -->
 <link rel="stylesheet" href="{{asset('frontend/assets/css/font-awesome.css')}}">
 
@@ -36,31 +36,32 @@
 @include('frontend.body.header')
 
 <!-- ============================================== HEADER : END ============================================== -->
-<!-- body --> 
+<!-- body -->
 @yield('content')
-<!-- /#top-banner-and-menu --> 
+<!-- /#top-banner-and-menu -->
 
 <!-- ============================================================= FOOTER ============================================================= -->
 @include('frontend.body.footer')
-<!-- ============================================================= FOOTER : END============================================================= --> 
+<!-- ============================================================= FOOTER : END============================================================= -->
 
-<!-- For demo purposes – can be removed on production --> 
+<!-- For demo purposes – can be removed on production -->
 
-<!-- For demo purposes – can be removed on production : End --> 
+<!-- For demo purposes – can be removed on production : End -->
 
-<!-- JavaScripts placed at the end of the document so the pages load faster --> 
-<script src="{{asset('frontend/assets/js/jquery-1.11.1.min.js')}}"></script> 
-<script src="{{asset('frontend/assets/js/bootstrap.min.js')}}"></script> 
-<script src="{{asset('frontend/assets/js/bootstrap-hover-dropdown.min.js')}}"></script> 
-<script src="{{asset('frontend/assets/js/owl.carousel.min.js')}}"></script> 
-<script src="{{asset('frontend/assets/js/echo.min.js')}}"></script> 
-<script src="{{asset('frontend/assets/js/jquery.easing-1.3.min.js')}}"></script> 
-<script src="{{asset('frontend/assets/js/bootstrap-slider.min.js')}}"></script> 
-<script src="{{asset('frontend/assets/js/jquery.rateit.min.js')}}"></script> 
-<script type="text/javascript" src="{{asset('frontend/assets/js/lightbox.min.js')}}"></script> 
-<script src="{{asset('frontend/assets/js/bootstrap-select.min.js')}}"></script> 
-<script src="{{asset('frontend/assets/js/wow.min.js')}}"></script> 
+<!-- JavaScripts placed at the end of the document so the pages load faster -->
+<script src="{{asset('frontend/assets/js/jquery-1.11.1.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/bootstrap-hover-dropdown.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/owl.carousel.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/echo.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/jquery.easing-1.3.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/bootstrap-slider.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/jquery.rateit.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('frontend/assets/js/lightbox.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/bootstrap-select.min.js')}}"></script>
+<script src="{{asset('frontend/assets/js/wow.min.js')}}"></script>
 <script src="{{asset('frontend/assets/js/scripts.js')}}"></script>
+<script src="{{asset('frontend/assets/js/configurator.js')}}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     $.ajaxSetup({
@@ -77,20 +78,17 @@
             success:function(response){
             var rows = ""
             $.each(response.carts, function(key,value){
-                console.log(value);
-                rows += `<tr>
+                rows += `<tr class="">
                 <td class="col-md-2"><img src="/${value.options.image} " alt="" width="100"></td>
-                
-                <td class="col-md-2">
-                    <div class="product-name"><a href="#">${value.name}</a></div>             
-                    
+                <td style="text-align: center;" class="col-md-2">
+                    <div class="product-name"><a href="#">${value.name}</a></div>
                 </td>
                 <td>
-                    <div class="price"> 
-                        ${value.subtotal}
+                    <div style="text-align: center;" class="price">
+                        ${value.subtotal} zł
                     </div>
                 </td>
-                <td class="col-md-1 close-btn">
+                <td style="text-align: center;" class="col-md-1 close-btn">
                     <button type="submit" class="" id="${value.rowId}" onclick="cartRemove(this.id)"><i class="fa fa-times"></i></button>
                 </td>
                 </tr>`
@@ -108,11 +106,11 @@
             success:function(data){
             cart();
             miniCart();
-             // Start Message 
+             // Start Message
                 const Toast = Swal.mixin({
                       toast: true,
                       position: 'top-end',
-                      
+
                       showConfirmButton: false,
                       timer: 3000
                     })
@@ -132,7 +130,7 @@
             }
         });
     }
-  
+
 	function miniCart(){
         $.ajax({
             type: 'GET',
@@ -152,7 +150,7 @@
 						<h3 class="name"><a href="index.php?page-detail">${value.name}</a></h3>
 						<div class="price"> ${value.price} * ${value.qty} </div>
 						</div>
-						<div class="col-xs-1 action"> 
+						<div class="col-xs-1 action">
           					<button type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)"><i class="fa fa-trash"></i></button> </div>
 						</div>
 					</div>
@@ -160,7 +158,7 @@
 					<div class="clearfix"></div>
 					<hr>`
                 });
-                
+
                 $('#miniCart').html(miniCart);
             }
         })
@@ -174,7 +172,8 @@
             type: "POST",
             dataType: 'json',
             data:{
-               quantity:quantity, product_name:product_name
+               quantity:quantity,
+                product_name:product_name
             },
             url: "/cart/data/store/"+id,
             success:function(data){

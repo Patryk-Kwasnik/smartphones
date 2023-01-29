@@ -10,7 +10,7 @@ My Checkout
 		<div class="breadcrumb-inner">
 			<ul class="list-inline list-unstyled">
 				<li><a href="home.html">Home</a></li>
-				<li class='active'>Checkout</li>
+				<li class='active'>Zamówienie</li>
 			</ul>
 		</div>
 	</div>
@@ -74,32 +74,25 @@ My Checkout
 	<div class="panel-group">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-		    	<h4 class="unicase-checkout-title">Your Checkout Progress</h4>
+		    	<h4 class="unicase-checkout-title">Twoje zamówienie</h4>
 		    </div>
 		    <div class="">
 				<ul class="nav nav-checkout-progress list-unstyled">
 
 					@foreach($carts as $item)
 					<li>
-						<strong>Image: </strong>
+						<strong>Zdjęcie produktu: </strong>
 						<img src="{{ asset($item->options->image) }}" style="height: 50px; width: 50px;">
 					</li>
 
 					<li>
-						<strong>Qty: </strong>
+						<strong>Ilość: </strong>
 						 ( {{ $item->qty }} )
-
-						 <strong>Color: </strong>
-						 {{ $item->options->color }}
-
-						 <strong>Size: </strong>
-						 {{ $item->options->size }}
 					</li>
                     @endforeach
 <hr>
 		 <li>
-            <strong>SubTotal: </strong> ${{ $cartTotal }} <hr>
-            <strong>Grand Total : </strong> ${{ $cartTotal }} <hr>
+            <strong>Łącznie: </strong> {{ $cartTotal }} Zł<hr>
 		 </li>
 
 				</ul>

@@ -9,30 +9,32 @@
                 </div>
                 <div class="col-md-8"><br>
                     <div class="table-responsive">
-                        <table class="table">
-                            <tbody>
+                        <table class="table table-striped">
+                            <thead>
                             <tr style="background: #e2e2e2;">
                                 <td class="col-md-1">
-                                    <label for=""> Date</label>
+                                    <label for=""> Data</label>
                                 </td>
                                 <td class="col-md-3">
-                                    <label for=""> Total</label>
+                                    <label for=""> Wartość zamówienia</label>
                                 </td>
                                 <td class="col-md-2">
-                                    <label for=""> Order</label>
+                                    <label for=""> Status</label>
                                 </td>
                                 <td class="col-md-1">
-                                    <label for=""> Action </label>
+                                    <label for=""> Opcje </label>
                                 </td>
                             </tr>
+                            </thead>
+                            <tbody>
                             @foreach($orders as $order)
                                 <tr>
                                     <td class="col-md-1">
-                                        <label for=""> {{ $order->order_date }}</label>
+                                        <label for=""> {{ $order->created_at }}</label>
                                     </td>
 
                                     <td class="col-md-3">
-                                        <label for=""> ${{ $order->amount }}</label>
+                                        <label for=""> {{ $order->amount }} zł</label>
                                     </td>
                                     <td class="col-md-2">
                                         <label for="">

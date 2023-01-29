@@ -8,6 +8,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ConfiguratorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,9 +28,8 @@ Route::middleware('admin:admin')->group(function () {
 // admin panel
 Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'verified'
 ])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.index');
-    })->name('dashboard')->middleware('auth:admin');
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])
+        ->name('dashboard')->middleware('auth:admin');
 });
 //Admin routes
 Route::get('admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
@@ -67,6 +67,10 @@ Route::prefix('orders')->group(function(){
     //ajax zmiana status zamówienia
     Route::post('/change_status', [OrderController::class, 'statusChange'])->name('status-change');
 });
+// Admin Get All User Routes
+Route::prefix('users')->group(function(){
+    Route::get('/view', [UserController::class, 'AdminAllUsers'])->name('all-users');
+});
 //user
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'
 ])->group(function () {
@@ -95,7 +99,9 @@ Route::get('/', [IndexController::class, 'index'])->name('index');
 //produkty
 Route::get('/product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']);
 Route::get('/brands/{brand_id}/{slug}', [IndexController::class, 'BrandProduct']);
-
+//konfigurator
+Route::get('/configurator', [ConfiguratorController::class, 'initConfigurator']);
+Route::post('/configurator/search', [ConfiguratorController::class, 'searchProduct']);
 //koszyk mini-ajax
 Route::post('/cart/data/store/{id}', [CartController::class, 'AddToCart']);
 Route::get('/product/mini/cart/', [CartController::class, 'AddMiniCart']);

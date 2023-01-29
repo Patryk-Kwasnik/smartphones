@@ -115,7 +115,7 @@
                             @foreach($orderItem as $item)
                                 <tr>
                                     <td width="10%">
-                                        <label for=""><img src="{{ asset($item->product->product_thumbnail) }}" height="50px;" width="50px;"> </label>
+                                        <label for=""> @if(isset($item->product->product_thumbnail)) <img src="{{ asset($item->product->product_thumbnail) }}" height="50px;" width="50px;">@else - @endif </label>
                                     </td>
                                     <td width="20%">
                                         <label for=""> {{ $item->product->name }}</label>

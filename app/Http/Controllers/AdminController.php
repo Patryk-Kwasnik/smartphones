@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -16,6 +17,7 @@ use Laravel\Fortify\Contracts\LogoutResponse;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Requests\LoginRequest;
+use App\Models\Order;
 
 use App\Http\Responses\LoginResponse;
 
@@ -28,7 +30,7 @@ class AdminController extends Controller
      */
     protected $guard;
 
-  
+
     /**
      * Create a new controller instance.
      *
@@ -110,5 +112,24 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
 
         return app(LogoutResponse::class);
+    }
+
+    public function index()
+    {
+        $orders = Order::orderBy('id','DESC')->limit(5)->get();
+        $total_orders = OrderController::orders_summary();
+        $products_count = OrderController::products_count();
+        $max_order = OrderController::max_order();
+        $avg_order = OrderController::avg_order();
+        $users = UserController::users_count();
+        return view('admin.index',
+            [
+                'orders' => $orders,
+                'total_orders' => $total_orders,
+                'products_count' =>  $products_count,
+                'max_order' => $max_order,
+                'avg_order' =>  $avg_order,
+                'users' =>  $users
+            ]);
     }
 }

@@ -36,7 +36,7 @@
                                 </tr>
                                 <tr>
                                     <th> Wartość zamówienia: </th>
-                                    <th> {{ $order->amount }} </th>
+                                    <th> {{ $order->amount }} zł </th>
                                 </tr>
                             </table>
                         </div>
@@ -79,7 +79,7 @@
                                         <label for=""> {{ $item->count }}</label>
                                     </td>
                                     <td class="col-md-2">
-                                        <label for=""> ${{ $item->price }}  ( $ {{ $item->price * $item->count}} ) </label>
+                                        <label for=""> {{ $item->price }}zł  (  {{ $item->price * $item->count}} zł ) </label>
                                     </td>
                                 </tr>
                             @endforeach

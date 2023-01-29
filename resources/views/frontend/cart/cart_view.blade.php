@@ -2,7 +2,7 @@
 @section('content')
 
 @section('title')
-My Cart Page 
+My Cart Page
 @endsection
 
 
@@ -11,7 +11,7 @@ My Cart Page
 		<div class="breadcrumb-inner">
 			<ul class="list-inline list-unstyled">
 				<li><a href="home.html">Home</a></li>
-				<li class='active'>MyCart</li>
+				<li class='active'>Mój koszyk</li>
 			</ul>
 		</div><!-- /.breadcrumb-inner -->
 	</div><!-- /.container -->
@@ -24,7 +24,7 @@ My Cart Page
 				<div class="shopping-cart-table">
                     <div class="table-responsive">
                         <table class="table">
-                            <thead>
+                            <thead >
                                 <tr>
                                     <th class="cart-img item">Zdjęcie</th>
 					                <th class="cart-description item">Nazwa</th>
@@ -35,13 +35,13 @@ My Cart Page
                                 <tbody id="cartPage">
                             </tbody>
                         </table>
-                        <a href="{{ route('checkout') }}" type="submit" class="btn btn-primary checkout-btn">Przejdź do zamówienia</a>
+                        <a style="float:right;" href="{{ route('checkout') }}" type="submit" class="btn btn-primary checkout-btn">Przejdź do zamówienia</a>
                     </div>
-                </div>			
-            </div><!-- /.row -->		
+                </div>
+            </div><!-- /.row -->
         </div><!-- /.sigin-in-->
     </div>
     <br>
-    @include('frontend.body.brands')
+
 </div>
 @endsection

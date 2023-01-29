@@ -17,11 +17,16 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('order_id');
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->unsignedBigInteger('product_id');
-            $table->string('color')->nullable();
-            $table->string('count');
-            $table->float('price',8,2);
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->string('name');
+            $table->string('slug');
+            $table->double ('size_screen', 3, 2);
+            $table->integer('count');
+            $table->string('color');
+            $table->string('selling_price');
+            $table->string('product_thumbnail');
+            $table->timestamps();
         });
     }
 

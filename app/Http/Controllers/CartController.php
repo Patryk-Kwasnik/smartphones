@@ -14,11 +14,11 @@ class CartController extends Controller
     	$product = Product::findOrFail($id);
 
     		Cart::add([
-    			'id' => $id, 
-    			'name' => $request->product_name, 
-    			'qty' => $request->quantity, 
+    			'id' => $id,
+    			'name' => $request->product_name,
+    			'qty' => $request->quantity,
     			'price' => $product->selling_price,
-    			'weight' => 1, 
+    			'weight' => 1,
     			'options' => [
     				'image' => $product->product_thumbnail,
     			],
@@ -37,10 +37,10 @@ class CartController extends Controller
     	return response()->json(array(
     		'carts' => $carts,
     		'cartQty' => $cartQty,
-    		'cartTotal' => round((float)$cartTotal),
+    		'cartTotal' => $cartTotal,
 
     	));
-    } 
+    }
 	/// kasowanie z koszyka
     public function RemoveMiniCart($rowId){
     	Cart::remove($rowId);
@@ -59,7 +59,7 @@ class CartController extends Controller
     	return response()->json(array(
     		'carts' => $carts,
     		'cartQty' => $cartQty,
-    		'cartTotal' => round($cartTotal),
+    		'cartTotal' => $cartTotal,
     	));
     }
 	// kasowanie główny koszyk
@@ -91,5 +91,5 @@ class CartController extends Controller
         return redirect()->route('login')->with($notification);
         }
     }
-	
+
 }

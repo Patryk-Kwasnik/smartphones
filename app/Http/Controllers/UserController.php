@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -83,6 +83,12 @@ class UserController extends Controller
 //wyświetlenie wszystkich userów w panelu admina
     public function AdminAllUsers(){
         $users = User::latest()->get();
-        return view('backend.user.all_user',compact('users'));
+        return view('admin.users.all_users',compact('users'));
+    }
+
+    public static function users_count()
+    {
+        $data = DB::table("users")->count('id');
+        return $data;
     }
 }

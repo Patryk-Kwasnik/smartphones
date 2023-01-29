@@ -13,10 +13,11 @@ use Carbon\Carbon;
 class IndexController extends Controller
 {
     public function index(){
-    	$products = Product::orderBy('id','DESC')->limit(6)->get();
+    	$products = Product::orderBy('id','DESC')->get();
     	$brand = Brand::orderBy('name','ASC')->get();
+        $hot_deals = Product::where('hot_deals',1)->orderBy('id','DESC')->limit(6)->get();
 
-    	return view('frontend.index',compact('brand','products'));
+    	return view('frontend.index',compact('brand','products','hot_deals'));
     }
 
     public function ProductDetails($id,$slug){
@@ -30,8 +31,9 @@ class IndexController extends Controller
 	public function BrandProduct($brand_id, $slug){
 		$products = Product::where('status',1)->where('brand_id',$brand_id)->orderBy('id','DESC')->paginate(3);
 		$brand = Brand::orderBy('name','ASC')->get();
+        $hot_deals = Product::where('hot_deals',1)->orderBy('id','DESC')->limit(6)->get();
 
-		return view('frontend.index',compact('products','brand'));
+		return view('frontend.index',compact('products','brand','hot_deals'));
 	}
 
 }

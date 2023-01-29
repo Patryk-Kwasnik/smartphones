@@ -1,4 +1,5 @@
 <x-guest-layout>
+
     <x-jet-authentication-card>
         <x-slot name="logo">
         </x-slot>
@@ -10,7 +11,11 @@
                 {{ session('status') }}
             </div>
         @endif
-      
+
+        @if(isset($guard) && $guard == 'admin')
+            <h2>Logowanie do panelu admina</h2><br>
+        @endif
+
         <form method="POST" action="{{ isset($guard) ? url($guard.'/login') : route('login') }}">
             @csrf
 
@@ -20,26 +25,26 @@
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
+                <x-jet-label for="password" value="{{ __('Hasło') }}" />
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
             <div class="block mt-4">
                 <label for="remember_me" class="flex items-center">
                     <x-jet-checkbox id="remember_me" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                    <span class="ml-2 text-sm text-gray-600">{{ __('Zapamiętaj') }}</span>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                        {{ __('Przypomnij hasło') }}
                     </a>
                 @endif
 
                 <x-jet-button class="ml-4">
-                    {{ __('Log in') }}
+                    {{ __('Zaloguj się') }}
                 </x-jet-button>
             </div>
         </form>

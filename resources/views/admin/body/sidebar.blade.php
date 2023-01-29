@@ -61,7 +61,7 @@
         </li>
 
         <li>
-          <a href="index.html">
+          <a href="{{ route('all-users') }}">
             <i data-feather="users"></i>
             <span>Użytkownicy</span>
           </a>
@@ -76,11 +76,5 @@
       </ul>
     </section>
 
-	<div class="sidebar-footer">
-		<!-- item-->
-		<a href="javascript:void(0)" class="link" data-toggle="tooltip" title="" data-original-title="Settings" aria-describedby="tooltip92529"><i class="ti-settings"></i></a>
-		<!-- item-->
-		<!-- item-->
-		<a href="javascript:void(0)" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i class="ti-lock"></i></a>
-	</div>
+
   </aside>
